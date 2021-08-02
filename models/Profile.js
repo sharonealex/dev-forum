@@ -18,7 +18,8 @@ const profileSchema = new Schema(
         type: String
     },
     status: {
-        type: String  //ci, junior, archi etc
+        type: String,
+        required: true //ci, junior, archi etc
     },
     skills: {
         type: [String],  //csv in react. convert to obj by JS.
