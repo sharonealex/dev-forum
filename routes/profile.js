@@ -47,6 +47,8 @@ router.post('/',auth, async(req, res)=>{
        profileFields.user = req.user.id;
        if(company) profileFields.company = company;
        if(website) profileFields.website = website;
+       if(location) profileFields.location = location;
+       if(bio) profileFields.bio = bio;
        if(status) profileFields.status = status;
        if(githubuser) profileFields.githubuser = githubuser;
        if(skills) {
@@ -64,14 +66,28 @@ router.post('/',auth, async(req, res)=>{
 
        let profile = await Profile.findOne({user: req.user.id});
        if(profile){
-
+        profile = await Profile.findOneAndUpdate(
+            { user: req.user.id},
+            {$set: profileFields},
+            {new: true}
+            )
+            return res.json(profile);
        }
-
+       
+       //if not found, create a new profile
+       profile = new Profile(profileFields);
+       await profile.save();
+       return res.json(profile);
 
     }catch(err){
        console.log(err)
        res.status(500).send('server error')
    }
 })
+
+/**
+ * to get all profiles of all developers
+ * is going to be public
+ */
 
 module.exports = router;
