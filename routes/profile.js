@@ -5,11 +5,7 @@ const Profile = require('../models/Profile')
 const User = require('../models/User')
 
 
-// @route GET api/profile 
-//dont need token
-router.get('/', (req, res)=>{
-    res.send('profile route')
-})
+
 
 // Route for fetching profile of logged in current user.
 router.get('/me', auth, async (req, res)=>{
@@ -23,6 +19,59 @@ router.get('/me', auth, async (req, res)=>{
         console.log(err.message);
         res.status(500).send('server error')
     }
+})
+
+/**
+ * POST api/profile to CREATE or UPDATE user profile
+ */
+
+router.post('/',auth, async(req, res)=>{
+   try{
+       const {
+           company,
+           website,
+           location,
+           bio,
+           status,
+           githubuser,
+           skills,
+           youtube,
+           facebook,
+           twitter,
+           instagram,
+           linkedin
+       } = req.body;
+
+       //build profile object.
+       const profileFields = {};
+       profileFields.user = req.user.id;
+       if(company) profileFields.company = company;
+       if(website) profileFields.website = website;
+       if(status) profileFields.status = status;
+       if(githubuser) profileFields.githubuser = githubuser;
+       if(skills) {
+           profileFields.skills = skills.split(',').map((item)=>{
+               return item.trim();
+           })
+       }
+       //build social object.
+       profileFields.social = {};
+       if(youtube) profileFields.social.youtube = youtube;
+       if(facebook) profileFields.social.facebook = facebook;
+       if(twitter) profileFields.social.twitter = twitter;
+       if(instagram) profileFields.social.instagram = instagram;
+       if(linkedin) profileFields.social.linkedin = linkedin;
+
+       let profile = await Profile.findOne({user: req.user.id});
+       if(profile){
+
+       }
+
+
+    }catch(err){
+       console.log(err)
+       res.status(500).send('server error')
+   }
 })
 
 module.exports = router;
