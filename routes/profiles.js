@@ -140,6 +140,7 @@ router.delete('/', auth, async(req, res) => {
 
 /**
  * add experience section.
+ * todo: add code to update experience.
  */
 
 router.put('/experience', auth, async(req, res)=>{
@@ -175,4 +176,24 @@ router.put('/experience', auth, async(req, res)=>{
     }
 })
 
+/**
+ * delete exp
+ */
+
+router.delete('/experience/:exp_id', auth, async (req, res)=>{
+    try{
+        const profile = await Profile.findOne({user: req.user.id});
+
+        //get index.
+        const indextToRemove = profile.experience.map((item)=>{
+            item.id
+        }).indexOf(req.params.id);
+
+        profile.experience.splice(indextToRemove, 1);
+        await profile.save();
+        res.json(profile)
+    }catch (err){
+        console.log(err)
+    }
+})
 module.exports = router;
