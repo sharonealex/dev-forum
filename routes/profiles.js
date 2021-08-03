@@ -120,4 +120,23 @@ router.get('/', async(req, res) => {
     }
 })
 
+/**
+ * delete route
+ */
+
+router.delete('/', auth, async(req, res) => {
+    try{
+        await Profile.findOneAndRemove({user: req.user.id});
+        await User.findOneAndRemove({_id: req.user.id});
+      
+        return res.json({msg: 'profile deleted'})
+
+    } catch(err){
+        console.error(err.message)
+        if(err.kind == 'ObjectId') return res.status(404).json({msg: 'profile not found'})
+        res.status(500).send('server error')
+    }
+})
+
+
 module.exports = router;
