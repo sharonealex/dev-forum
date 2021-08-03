@@ -1,8 +1,9 @@
 const express = require('express');
+const Profile = require('../models/Profile');
+const User = require('../models/User');
+const auth = require('../utils/auth');
 const router = express.Router();
-const auth = require('../utils/auth')
-const Profile = require('../models/Profile')
-const User = require('../models/User')
+
 
 
 
@@ -10,7 +11,7 @@ const User = require('../models/User')
 // Route for fetching profile of logged in current user.
 router.get('/me', auth, async (req, res)=>{
     try{
-        const profile = await Profile.findOne({user: req.user.id}).populate('user', ['name','avatar']);
+        const profile = await Profile.findOne({user: req.user.id}).populate('user', ['name', 'avatar']);
         if(!profile){
             return res.status(400).json({msg: 'no profile for this user'})
         }
@@ -89,5 +90,16 @@ router.post('/',auth, async(req, res)=>{
  * to get all profiles of all developers
  * is going to be public
  */
+
+router.get('/', async(req, res) => {
+    try{
+        const profiles = await Profile.find().populate('user', ['name', 'avatar']);;
+        return res.json(profiles)
+
+    } catch(err){
+        console.error(err.message)
+        res.status(500).send('server error')
+    }
+})
 
 module.exports = router;

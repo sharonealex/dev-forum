@@ -1,9 +1,9 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -31,6 +31,6 @@ const userSchema = new Schema(
   // set this to use virtual below
 
 
-const User = model('User', userSchema);
+const User = mongoose.model('user', userSchema);
 
 module.exports = User;

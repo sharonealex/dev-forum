@@ -1,12 +1,12 @@
-const { Schema, model, Mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 
 
-const profileSchema = new Schema(
+const profileSchema = new mongoose.Schema(
   {
     user: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
       required: true,
       unique: true,
@@ -119,6 +119,6 @@ const profileSchema = new Schema(
   // set this to use virtual below
 
 
-const Profile = model('Profile', profileSchema);
+const Profile = mongoose.model('Profile', profileSchema);
 
 module.exports = Profile;
