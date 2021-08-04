@@ -20,6 +20,56 @@ res.json(posts)
 
 })
 
+//Posts by id fetch.
+router.get('/:id', auth, async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+        if(!post){
+            return res.status(404).json({msg: "post not found"})
+        }
+        
+        res.json(post)
+    }
+    catch(err){
+console.error(err.message);
+if(err.kind === 'ObjectId'){ //want to return the same response
+    return res.status(404).json({msg: "post not found"})
+}
+res.status(500).send('server error')
+    }
+})
+
+
+//Posts by id delete.
+router.delete('/:id', auth, async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+        
+        //check if post exists
+        if(!post){
+            return res.status(404).json({msg: "post not found"})
+        }
+        //need to chek the user owns the post he is deleting.
+        if(post.user.toString() !== req.user.id){
+            return res.status(401).json({msg: "user not authorised"})
+        }
+        else{
+            await post.remove();
+            res.json({msg: "post deleted"})
+        }
+        
+        res.json(post)
+    }
+    catch(err){
+console.error(err.message);
+if(err.kind === 'ObjectId'){ //want to return the same response
+    return res.status(404).json({msg: "post not found"})
+}
+return res.status(500).send('server error')
+    }
+})
+
+
 
 //logged into create a route. so need auth middleware
 
