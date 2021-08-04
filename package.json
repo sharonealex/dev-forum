@@ -1,0 +1,21 @@
+{
+  "name": "dev-forum",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "server": "node server/server.js",
+    "watch": "node server/server.js",
+    "client": "npm start --prefix client",
+    "develop": "concurrently \"cd server && npm run server\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "dependencies": {}
+}
