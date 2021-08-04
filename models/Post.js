@@ -44,7 +44,11 @@ const postSchema = new mongoose.Schema(
             },
             avatar: {
                 type: String
-            }
+            },
+            date: {
+                type: Date,
+                default: Date.now
+              }
         }
     ],
     date: {

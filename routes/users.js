@@ -5,6 +5,7 @@ const bcryptjs = require('bcryptjs');
 const gravatar = require('gravatar')
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const normalize = require('normalize-url');
 
 
 
@@ -24,17 +25,21 @@ router.post('/', async (req, res)=>{
             res.status(400).json({errors: [{msg: 'user already exists'}]})
         }
     //get users gravatar based on their email
-    const avatar = gravatar.url(email, {
-        s: '200',
-        r: 'pg',
-        d: 'mm'
-    })
+    const avatar = normalize(
+        gravatar.url(email, {
+          s: '200',
+          r: 'pg',
+          d: 'mm'
+        }),
+        { forceHttps: true }
+      );
     //encrypt password using bcrypt
     //creates a new user instance
     user = new User ({
         name,
         email,
-        password
+        password,
+        avatar
     });
     const salt = await bcryptjs.genSalt(10);
     user.password = await bcryptjs.hash(password, salt); //creates a hash.

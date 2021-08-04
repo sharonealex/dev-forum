@@ -145,4 +145,30 @@ router.put('/unlike/:id', auth, async(req, res)=>{
         console.log(err)
     }
 });
+
+//Comments create. 
+//comments dont have likes.
+//id is post id
+router.post('/comments/:id', auth, async (req, res)=>{
+    console.log("inside comment create")
+    
+    try{
+        const user = await User.findById(req.user.id).select('-password');  //to fetch name and avatar from db
+        const post = await Post.findById(req.params.id)
+        console.log("userrr", user)
+        const newComment = {
+            text: req.body.text, //only user entered field
+            name: user.name,
+            avatar: user.avatar,
+            user: req.user.id
+        }
+    post.comments.unshift(newComment);
+        await post.save();
+        console.log(post, "asdf")
+        return res.json(post.comments)
+    } catch(err){
+
+    }
+   
+})
 module.exports = router;
