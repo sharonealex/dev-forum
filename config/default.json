@@ -1,4 +1,6 @@
 {
 "MONGO_URI": "mongodb://localhost/devForum",
-"JWT_SECRET": "mysupersecret"
+"JWT_SECRET": "mysupersecret",
+"GITHUB_CLIENT_ID": "d73251a628a95a012167",
+"GITHUB_CLIENT_SECRET": "b33033833c7e7b3375503fc8b532d5df4326c0f7"
 }

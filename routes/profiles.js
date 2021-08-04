@@ -177,7 +177,7 @@ router.put('/experience', auth, async(req, res)=>{
 })
 
 /**
- * delete exp
+ * delete experience
  */
 
 router.delete('/experience/:exp_id', auth, async (req, res)=>{
@@ -196,4 +196,63 @@ router.delete('/experience/:exp_id', auth, async (req, res)=>{
         console.log(err)
     }
 })
+
+/**
+ * Add and remove education
+ */
+
+ router.put('/education', auth, async(req, res)=>{
+    const {
+        school,
+        degree,
+        fieldOfStudy,
+        from,
+        to,
+        current,
+        description
+    } = req.body;
+
+    const newEducation = {  //object with data user submits.
+        school,
+        degree,
+        fieldOfStudy,
+        from,
+        to,
+        current,
+        description
+    }
+    console.log(newEducation)
+    try {
+        const profile = await Profile.findOne({user: req.user.id});
+        console.log(profile)
+        profile.education.unshift(newEducation);
+        await profile.save();
+        res.json(profile);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('server error');
+    }
+})
+
+/**
+ * delete education
+ */
+
+ router.delete('/education/:edu_id', auth, async (req, res)=>{
+    try{
+        const profile = await Profile.findOne({user: req.user.id});
+
+        //get index.
+        const indextToRemove = profile.education.map((item)=>{
+            item.id
+        }).indexOf(req.params.id);
+
+        profile.education.splice(indextToRemove, 1);
+        await profile.save();
+        res.json(profile)
+    }catch (err){
+        console.log(err)
+    }
+})
+
 module.exports = router;
