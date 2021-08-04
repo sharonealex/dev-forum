@@ -118,4 +118,31 @@ return res.status(400).json({msg: "post already liked by this user"})
     }
 })
 
+
+//post unlike feature
+router.put('/unlike/:id', auth, async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+
+        //check if the post is liked by the same user.
+        const userLikes = post.likes.filter((like)=>{
+            return like.user.toString() === req.user.id;
+        })
+        if(userLikes.length === 0){
+        return res.status(400).json({msg: "post not yet liked by user"})
+        }
+
+        //get the userlike of this particular user
+        const userLikeIndex = post.likes.map((like =>{
+            like.user.toString().indexOf(req.user.id);
+        }));
+
+        post.likes.splice(userLikeIndex, 1);
+        await post.save();
+       return res.json(post.likes) //returns id of the like object and related user
+       
+    }catch (err){
+        console.log(err)
+    }
+});
 module.exports = router;
