@@ -3,6 +3,8 @@ const Profile = require('../models/Profile');
 const User = require('../models/User');
 const auth = require('../utils/auth');
 const router = express.Router();
+const request = require('request');
+const config = require('config');
 
 
 
@@ -250,8 +252,37 @@ router.delete('/experience/:exp_id', auth, async (req, res)=>{
         profile.education.splice(indextToRemove, 1);
         await profile.save();
         res.json(profile)
+
     }catch (err){
         console.log(err)
+    }
+})
+/***
+ * get github profiles, public. as viewing profile is public
+ */
+
+router.get('/github/:username', (req, res)=>{
+    try{
+        const options = {
+            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=8&sort=:asc&client_id=${config.get('GITHUB_CLIENT_ID')}
+            &client_secret=${config.get('GITHUB_CLIENT_SECRET')}
+            `,
+            method: 'GET',
+            headers: {'user-agent': 'node.js'}
+        }
+        request(options, (error, response, body)=>{
+            if(error){
+                console.log(error)
+            }
+            if(response.statusCode != 200){
+                res.status(404).json({msg: 'no github profile found'})
+            }
+            res.json(JSON.parse(body))
+        })
+
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('server error')
     }
 })
 
