@@ -95,4 +95,27 @@ router.post('/', auth, async (req, res)=>{
    
 })
 
+
+//post update for likes and disklikes.
+
+router.put('/like/:id', auth, async(req, res)=>{
+    try{
+        const post = await Post.findById(req.params.id);
+
+        //check if the post is liked by the same user.
+        const userLikes = post.likes.filter((like)=>{
+            return like.user.toString() === req.user.id;
+        })
+        if(userLikes.length > 0){
+return res.status(400).json({msg: "post already liked by this user"})
+        }
+        post.likes.unshift({user: req.user.id})
+        await post.save();
+       return res.json(post.likes) //returns id of the like object and related user
+       
+    }catch (err){
+        console.log(err)
+    }
+})
+
 module.exports = router;
