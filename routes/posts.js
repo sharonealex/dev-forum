@@ -22,12 +22,12 @@ router.post('/', auth, async (req, res)=>{
     try{
         const user = await User.findById(req.user.id).select('-password');  //to fetch name and avatar from db
         console.log("userrr", user)
-        const newPost = {
+        const newPost = new Post({
             text: req.body.text,
             name: user.name,
             avatar: user.avatar,
             user: req.user.id
-        }
+        })
         console.log(newPost, "new post")
         const post = await newPost.save();
         console.log(post, "asdf")
