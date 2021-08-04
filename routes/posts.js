@@ -8,9 +8,16 @@ const auth = require('../utils/auth')
 
 
 // @route GET api/posts 
-//dont need token
-router.get('/', (req, res)=>{
-    res.send('posts route')
+//posts are private. - getting people to signup. Profiles are public.
+router.get('/',async (req, res)=>{
+    try{
+const posts = await Post.find().sort({date: -1}) //to get the latest post
+res.json(posts)
+    }
+    catch(err){
+        console.log(err)
+    }
+
 })
 
 
@@ -23,7 +30,7 @@ router.post('/', auth, async (req, res)=>{
         const user = await User.findById(req.user.id).select('-password');  //to fetch name and avatar from db
         console.log("userrr", user)
         const newPost = new Post({
-            text: req.body.text,
+            text: req.body.text, //only user entered field
             name: user.name,
             avatar: user.avatar,
             user: req.user.id
