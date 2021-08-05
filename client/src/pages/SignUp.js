@@ -1,5 +1,6 @@
 import react from 'react';
 import { useState } from 'react';
+const axios = require ('axios')
 
 const SignUp = ()=>{
 
@@ -10,19 +11,36 @@ const [formData, setFormData] = useState({
     password2: ''
 });
 
-const {name, email, password, password2} = formData; //fetching from current state object
+const {name, email, password, password2} = formData; //fetching from current state object //rename password name
 
 
 const handleInputChange = (event)=>{
     setFormData({...formData, [event.target.name]: event.target.value})
 }
 
-const handleFormSubmit = (event)=>{
+const handleFormSubmit = async (event)=>{
     event.preventDefault();
     if(password !== password2){
         console.log("passwords dont match")
     } else {
-        console.log(formData)
+        console.log(formData);
+        const newUser = {
+            name,
+            email,
+            password
+        }
+        try{
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const body = JSON.stringify(newUser);
+            const response = await axios.post('/api/users', body, config)
+            console.log(response);
+        }catch (err){
+console.log(err)
+        }
        
     }
 }
@@ -38,8 +56,7 @@ const handleFormSubmit = (event)=>{
      <div className="form-group">
        <input type="email" placeholder="Email Address" name="email" value={email} onChange={e => handleInputChange(e) } />
        <small className="form-text"
-         >This site uses Gravatar so if you want a profile image, use a
-         Gravatar email</small
+         ></small
        >
      </div>
      <div className="form-group">
