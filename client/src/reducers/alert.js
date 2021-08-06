@@ -6,14 +6,14 @@ const initialState = [] //will be an array of objects
 
 
 export default function(state = initialState, action){
-
-    switch(action.type){
-        case SET_ALERT:
-            return [...state, action.payload] //state is immutable so we copy existing state and add to it
+ const {type, payload} = action;
+    switch(type){
+        case SET_ALERT: //when we dispatch type set alert, we return array with the existing state + new payload.
+            return [...state, payload] //state is immutable so we copy existing state and add to it
         //remove a specific array by id
         case REMOVE_ALERT:
          return state.filter(alert => 
-             alert.id !== alert.action.payload
+             alert.id !== payload    //will return all alerts except that matches the payload.
          )    
     }
 }
