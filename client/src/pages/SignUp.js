@@ -79,7 +79,7 @@ const handleFormSubmit = async (event)=>{
 
 SignUp.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  SignUp: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired
 };
 
 

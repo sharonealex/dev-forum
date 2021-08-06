@@ -9,7 +9,7 @@ const normalize = require('normalize-url');
 
 
 
-// @route GET api/users 
+// @route POst api/users 
 //dont need token
 router.post('/', async (req, res)=>{
 
@@ -22,7 +22,7 @@ router.post('/', async (req, res)=>{
     //see if user exists
     let user = await User.findOne({email})
         if(user){
-            res.status(400).json({errors: [{msg: 'user already exists'}]})
+           return res.status(400).json({errors: [{msg: 'user already exists'}]})
         }
     //get users gravatar based on their email
     const avatar = normalize(
@@ -59,14 +59,14 @@ router.post('/', async (req, res)=>{
         },
         (err, token)=>{
             if (err) throw err;
-            res.json({token}); 
+            return res.json({token}); 
         }
     )
       
     //return json webtoken, so user is logged in right away without going through another link to log in.
     }catch (err){
         console.error(err.message);
-        res.status(500).send("internal server error");
+        return res.status(500).send("internal server error");
     }
 })
 
