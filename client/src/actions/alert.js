@@ -10,4 +10,11 @@ dispatch({
     type: SET_ALERT,
     payload: {msg, alertType, id}
 });
+setTimeout(()=>{
+ dispatch({
+     type: REMOVE_ALERT,
+     payload: id
+ })
+}, 2000) // this will be dispatched 2 secs after previous action
+
 };
