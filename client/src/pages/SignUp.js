@@ -1,10 +1,16 @@
 import react from 'react';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
-const axios = require ('axios')
+
+import {connect} from 'react-redux'
+import {setAlert} from '../actions/alert'
+import PropTypes from 'prop-types';
+const axios = require ('axios');
 
 
-const SignUp = ()=>{
+
+
+const SignUp = (props)=>{
 
 const [formData, setFormData] = useState({
     name: '',
@@ -23,7 +29,7 @@ const handleInputChange = (event)=>{
 const handleFormSubmit = async (event)=>{
     event.preventDefault();
     if(password !== password2){
-        console.log("passwords dont match")
+        props.setAlert("passwords dont match", "danger") //pass this as a message to our actions, . It will generate an id and dispatch sest alert with this  message.it to 
     } else {
         console.log(formData);
         const newUser = {
@@ -88,4 +94,15 @@ console.log(err)
     )
 }
 
-export default SignUp;
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  SignUp: PropTypes.func.isRequired
+};
+
+
+export default connect(null, {setAlert})(SignUp);
+
+//to use an action pass it into connect
+//connect takes any state that we want to map as a prop.
+//second any object that you need actions to do.
+// setAlert is sent as a prop to the component. it maps state to prop.
