@@ -6,9 +6,15 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import './App.css';
 
+//Redux
 
+import {Provider} from 'react-redux';  //connects react redux
+import store from './store'
+
+//wrapping with provider allows all compnents to access the state
 function App() {
   return (
+    <Provider store={store}>
     <Router>
     <div className="App">
     <Navbar/>
@@ -21,7 +27,7 @@ function App() {
     </section>
     </div>
     </Router>
-   
+    </Provider>
   );
 }
 
