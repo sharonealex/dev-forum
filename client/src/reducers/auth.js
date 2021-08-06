@@ -1,6 +1,8 @@
 import {
     SIGNUP_SUCCESS,
-    SIGNUP_FAILIURE
+    SIGNUP_FAILIURE,
+    AUTH_ERROR,
+    USER_LOADED
 } from  '../actions/types'
 
 const initialState = {
@@ -15,6 +17,7 @@ export default function(state = initialState, action){
     const {type, payload} = action;
 
     switch(type){
+     
         case SIGNUP_SUCCESS:
             localStorage.setItem('token', payload.token);
             return {
@@ -26,6 +29,7 @@ export default function(state = initialState, action){
 
 
         case SIGNUP_FAILIURE:
+            case AUTH_ERROR:       //remove any invalid token from local storage.
                 localStorage.removeItem('token');
                 return  {
                     ...state,
@@ -33,7 +37,13 @@ export default function(state = initialState, action){
                     isAuthenticated: false,
                     loading: true
                 }
-
+        case USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: payload
+            }
         default: return state;        
     }
 }
