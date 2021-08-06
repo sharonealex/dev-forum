@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import {connect} from 'react-redux'
 import {setAlert} from '../actions/alert'
+import {signUp} from '../actions/auth'
 import PropTypes from 'prop-types';
 const axios = require ('axios');
 
@@ -31,25 +32,7 @@ const handleFormSubmit = async (event)=>{
     if(password !== password2){
         props.setAlert("passwords dont match", "danger") //pass this as a message to our actions, . It will generate an id and dispatch sest alert with this  message.it to 
     } else {
-        console.log(formData);
-        const newUser = {
-            name,
-            email,
-            password
-        }
-        try{
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            const body = JSON.stringify(newUser);
-            const response = await axios.post('/api/users', body, config)
-            console.log(response);
-        }catch (err){
-console.log(err)
-        }
-       
+      props.signUp({name, email, password});
     }
 }
 
@@ -100,7 +83,7 @@ SignUp.propTypes = {
 };
 
 
-export default connect(null, {setAlert})(SignUp);
+export default connect(null, {setAlert, signUp})(SignUp);
 
 //to use an action pass it into connect
 //connect takes any state that we want to map as a prop.
