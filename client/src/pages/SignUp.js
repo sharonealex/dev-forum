@@ -1,6 +1,6 @@
 import react from 'react';
 import { useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux'
 import {setAlert} from '../actions/alert'
@@ -35,7 +35,9 @@ const handleFormSubmit = async (event)=>{
       props.signUp({name, email, password});
     }
 }
-
+   if(props.isAuthenticated){
+     return <Redirect to='/dashboard'></Redirect>
+   }
 
     return (             
    <div> <h1 className="large text-primary">Sign Up</h1>
