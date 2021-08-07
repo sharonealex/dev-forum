@@ -15,6 +15,8 @@ import {Provider} from 'react-redux';  //connects react and redux
 import store from './store'
 import CreateProfile from './components/profileForms/CreateProfile'
 import EditProfile from './components/profileForms/EditProfile';
+import AddExperience from './components/profileForms/AddExperience';
+import AddEducation from './components/profileForms/AddEducation';
 
 //wrapping with provider allows all compnents to access the state
 
@@ -40,6 +42,8 @@ function App() {
         <PrivateRoute exact path='/dashboard' component={Dashboard}/>
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+        <PrivateRoute exact path="/add-experience" component={AddExperience} />
+        <PrivateRoute exact path="/add-education" component={AddEducation} />
       </Switch>
     </section>
     </div>
