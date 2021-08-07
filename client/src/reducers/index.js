@@ -4,10 +4,12 @@
 import {combineReducers} from 'redux';
 import alert from './alert'
 import auth from './auth'
+import profile from './profile';
 
 export default combineReducers ({ //add all the reducers here
 alert,
-auth
+auth,
+profile
 })
 
 //jwt is stateless. so on page loada its lost 
