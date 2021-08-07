@@ -14,6 +14,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import {Provider} from 'react-redux';  //connects react and redux
 import store from './store'
 import CreateProfile from './components/profileForms/CreateProfile'
+import EditProfile from './components/profileForms/EditProfile';
 
 //wrapping with provider allows all compnents to access the state
 
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/login" component={Login}/>
         <PrivateRoute exact path='/dashboard' component={Dashboard}/>
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
       </Switch>
     </section>
     </div>
