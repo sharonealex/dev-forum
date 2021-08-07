@@ -79,11 +79,16 @@ const handleFormSubmit = async (event)=>{
 
 SignUp.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  signUp: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
-export default connect(null, {setAlert, signUp})(SignUp);
+
+export default connect(mapStateToProps, {setAlert, signUp})(SignUp);
 
 //to use an action pass it into connect
 //connect takes any state that we want to map as a prop.

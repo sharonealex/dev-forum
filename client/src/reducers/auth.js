@@ -26,8 +26,6 @@ export default function(state = initialState, action){
             isAuthenticated: true,
             loading: false
             }
-
-
         case SIGNUP_FAILIURE:
             case AUTH_ERROR:       //remove any invalid token from local storage.
                 localStorage.removeItem('token');

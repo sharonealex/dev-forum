@@ -15,13 +15,13 @@ import store from './store'
 //wrapping with provider allows all compnents to access the state
 
 if(localStorage.token){
-  setAuthToken(localStorage.tokentry)
+  setAuthToken(localStorage.token)
    }
 
 function App() {
   useEffect(()=>{
-    store.dispatch(loadUser)
-  }, [])
+    store.dispatch(loadUser())
+  }, []) //component did Mount
   return (
     <Provider store={store}>
     <Router>
