@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../actions/profile';
+import { getCurrentProfile } from '../../actions/profile';
 
 
 const CreateProfile = props => {
@@ -39,14 +39,6 @@ const CreateProfile = props => {
  } = formData;
 
 
- const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    createProfile(formData, history, profile ? true : false);
-  };
-
 
     return (
         <div>
@@ -58,9 +50,9 @@ const CreateProfile = props => {
        add your info to create profile
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" >
         <div className="form-group">
-          <select name="status" value={status} onChange={onChange}>
+          <select name="status" value={status} >
             <option>* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
@@ -204,8 +196,8 @@ const CreateProfile = props => {
     )
 }
 
-createProfile.propTypes = {
+CreateProfile.propTypes = {
 
 }
 
-export default createProfile;
+export default CreateProfile;
