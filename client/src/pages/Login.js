@@ -1,9 +1,12 @@
 import react from 'react';
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
+import {login} from '../actions/auth'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
 
 
-const Login = ()=>{
+const Login = (props)=>{
 
 const [formData, setFormData] = useState({
    
@@ -21,7 +24,7 @@ const handleInputChange = (event)=>{
 
 const handleFormSubmit = async (event)=>{
     event.preventDefault();
-    console.log('success')
+    props.login(email, password)
     } 
 
 
@@ -54,4 +57,8 @@ const handleFormSubmit = async (event)=>{
     )
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired
+}
+
+export default connect(null, {login})(Login)
