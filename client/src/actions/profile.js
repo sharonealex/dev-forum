@@ -2,7 +2,7 @@ import axios from "axios";
 import { Router } from "react-router-dom";
 import { setAlert } from "./alert";
 
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE, CLEAR_PROFILE, ACCOUNT_DELETED } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
   try {
@@ -160,4 +160,28 @@ export const deleteEducation = id => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status },
     })
   }
+ }
+
+
+//delete account. and also associated profile.
+
+export const deleteAccount = id => async dispatch => {
+  if(window.confirm('are you sure this cannont be UNdone?')){
+    try{
+      const res = await axios.delete(`/api/profile`);
+      dispatch({
+        type: CLEAR_PROFILE
+      })
+      dispatch({
+        type: ACCOUNT_DELETED
+      })
+      dispatch(setAlert("YOUR account deleted permanently", "success"));
+    } catch(err){
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      })
+    }
+  }
+ 
  }
