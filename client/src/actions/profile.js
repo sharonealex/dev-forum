@@ -130,7 +130,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
 
 export const deleteExperience = id => async dispatch => {
  try{
-   const res = await axios.delete(`/api/profile/experience/${id}`);
+   const res = await axios.delete(`/api/profiles/experience/${id}`);
    dispatch({
      type: UPDATE_PROFILE,
      payload: res.data
@@ -148,7 +148,7 @@ export const deleteExperience = id => async dispatch => {
 
 export const deleteEducation = id => async dispatch => {
   try{
-    const res = await axios.delete(`/api/profile/education/${id}`);
+    const res = await axios.delete(`/api/profiles/education/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -168,7 +168,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = id => async dispatch => {
   if(window.confirm('are you sure this cannont be UNdone?')){
     try{
-      const res = await axios.delete(`/api/profile`);
+      const res = await axios.delete(`/api/profiles`);
       dispatch({
         type: CLEAR_PROFILE
       })
