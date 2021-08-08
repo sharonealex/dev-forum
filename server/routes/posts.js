@@ -100,6 +100,7 @@ router.post('/', auth, async (req, res)=>{
 
 router.put('/like/:id', auth, async(req, res)=>{
     try{
+        console.log('herer', req.params.id)
         const post = await Post.findById(req.params.id);
 
         //check if the post is liked by the same user.
