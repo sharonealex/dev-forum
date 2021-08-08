@@ -17,6 +17,7 @@ import CreateProfile from './components/profileForms/CreateProfile'
 import EditProfile from './components/profileForms/EditProfile';
 import AddExperience from './components/profileForms/AddExperience';
 import AddEducation from './components/profileForms/AddEducation';
+import Profiles from './components/profiles/Profiles'
 
 //wrapping with provider allows all compnents to access the state
 
@@ -39,6 +40,7 @@ function App() {
       <Switch>
         <Route exact path="/signUp" component={SignUp}/>
         <Route exact path="/login" component={Login}/>
+        <Route exact path="/profiles" component={Profiles}/>
         <PrivateRoute exact path='/dashboard' component={Dashboard}/>
         <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         <PrivateRoute exact path="/edit-profile" component={EditProfile} />
