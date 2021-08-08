@@ -37,7 +37,7 @@ router.post('/',auth, async(req, res)=>{
            location,
            bio,
            status,
-           githubuser,
+           githubUser,
            skills,
            youtube,
            facebook,
@@ -54,7 +54,7 @@ router.post('/',auth, async(req, res)=>{
        if(location) profileFields.location = location;
        if(bio) profileFields.bio = bio;
        if(status) profileFields.status = status;
-       if(githubuser) profileFields.githubuser = githubuser;
+       if(githubUser) profileFields.githubUser = githubUser;
        if(skills) {
            profileFields.skills = skills.split(',').map((item)=>{
                return item.trim();
@@ -266,6 +266,7 @@ router.delete('/experience/:exp_id', auth, async (req, res)=>{
 
 router.get('/github/:username', (req, res)=>{
     try{
+        console.log(req.params.username, 'user')
         const options = {
             uri: `https://api.github.com/users/${req.params.username}/repos?per_page=8&sort=:asc&client_id=${config.get('GITHUB_CLIENT_ID')}
             &client_secret=${config.get('GITHUB_CLIENT_SECRET')}
