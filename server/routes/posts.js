@@ -55,10 +55,10 @@ router.delete('/:id', auth, async(req, res)=>{
         }
         else{
             await post.remove();
-            res.json({msg: "post deleted"})
+            return res.json({msg: "post deleted"})
         }
         
-        res.json(post)
+        return res.json(post)
     }
     catch(err){
 console.error(err.message);
@@ -76,22 +76,23 @@ return res.status(500).send('server error')
 router.post('/', auth, async (req, res)=>{
     console.log("inside post create")
     
-    try{
-        const user = await User.findById(req.user.id).select('-password');  //to fetch name and avatar from db
-        console.log("userrr", user)
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+  
         const newPost = new Post({
-            text: req.body.text, //only user entered field
-            name: user.name,
-            avatar: user.avatar,
-            user: req.user.id
-        })
-        console.log(newPost, "new post")
+          text: req.body.text,
+          name: user.name,
+          avatar: user.avatar,
+          user: req.user.id
+        });
+  
         const post = await newPost.save();
-        console.log(post, "asdf")
-        return res.json(post)
-    } catch(err){
-
-    }
+  console.log("after db save")
+        res.json(post);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+      }
    
 })
 
