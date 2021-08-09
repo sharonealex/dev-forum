@@ -23,7 +23,10 @@ res.json(posts)
 //Posts by id fetch.
 router.get('/:id', auth, async(req, res)=>{
     try{
+        console.log(req.params.id, "sdfds")
         const post = await Post.findById(req.params.id);
+      
+        console.log(post)
         if(!post){
             return res.status(404).json({msg: "post not found"})
         }

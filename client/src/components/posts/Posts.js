@@ -7,6 +7,7 @@ import Spinner from "../Spinner";
 import PostItem from "./PostItem.js";
 import PostForm from "./PostForm";
 
+
 const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
     getPosts();
