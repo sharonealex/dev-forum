@@ -155,7 +155,9 @@ router.put('/unlike/:id', auth, async(req, res)=>{
 //comments dont have likes.
 //id is post id
 router.post('/comments/:id', auth, async (req, res)=>{
-    console.log("inside comment create")
+    console.log("inside comment create============", req.params.id)
+    console.log(req.body)
+   
     
     try{
         const user = await User.findById(req.user.id).select('-password');  //to fetch name and avatar from db

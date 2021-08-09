@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import Spinner from '../Spinner'
 import {getPost} from '../../actions/post'
 import PostItem from "../posts/PostItem";
+import CommentForm from "../post/CommentForm";
 
 
 const Post = ({getPost, post: {post, loading}, match}) => {
@@ -20,6 +21,7 @@ const Post = ({getPost, post: {post, loading}, match}) => {
         Back To Posts
       </Link>
      <PostItem post={post} showActionsPane={false}/>
+     <CommentForm postId={post._id} />
     </div>
   );
 };
