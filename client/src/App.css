@@ -2,22 +2,23 @@
 :root {
     --primary-color: #17a2b8;
     --dark-color: #343a40;
-    --light-color: #f4f4f4;
+    --light-color: #95afc0;
     --danger-color: #dc3545;
     --success-color: #28a745;
+    --header-color: #f6e58d;
   }
   
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
+  }  
   
   body {
     font-family: 'Raleway', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    background-color: #fff;
+    background-color: hsla(210, 93%, 95%, 1);
     color: #333;
   }
   
@@ -68,6 +69,10 @@
   
   .text-primary {
     color: var(--primary-color);
+  }
+
+  .text-header {
+    color: var(--header-color); 
   }
   
   .text-dark {
@@ -237,6 +242,7 @@
   /* Forms */
   .form .form-group {
     margin: 1.2rem 0;
+    border-radius: 25px;
   }
   
   .form .form-text {
@@ -309,7 +315,7 @@
     width: 100%;
     top: 0;
     border-bottom: solid 1px var(--primary-color);
-    opacity: 0.9;
+    opacity: 8;
   }
   
   .navbar ul {
@@ -358,6 +364,7 @@
     padding: 1rem;
     line-height: 1.8;
     margin-bottom: 1rem;
+    border-radius: 25px;
   }
   
   /* Profile Page */
@@ -369,6 +376,7 @@
       'exp edu'
       'github github';
     grid-gap: 1rem;
+    border-radius: 25px;
   }
   
   .profile-top {
@@ -378,6 +386,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    border-radius: 25px;
   }
   
   .profile-top img {
@@ -396,6 +405,7 @@
   .profile-about {
     grid-area: about;
     text-align: center;
+    border-radius: 25px;
   }
   
   .profile-about .skills {
@@ -403,14 +413,17 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    border-radius: 25px;
   }
   
   .profile-exp {
     grid-area: exp;
+    border-radius: 25px;
   }
   
   .profile-edu {
     grid-area: edu;
+    border-radius: 25px;
   }
   
   .profile-exp h2,
@@ -457,6 +470,7 @@
   .post-form .post-form-header {
     background: var(--primary-color);
     padding: 0.5rem;
+    border-radius: 15px;
   }
   
   .post {
@@ -464,6 +478,7 @@
     grid-template-columns: 1fr 4fr;
     grid-gap: 2rem;
     align-items: center;
+    border-radius: 15px;
   }
   
   .post > div:first-child {

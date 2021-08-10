@@ -19,8 +19,8 @@ import AddExperience from "./components/profileForms/AddExperience";
 import AddEducation from "./components/profileForms/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
-import Posts from "./components/posts/Posts"
-import Post from "./components/post/Post"
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 
 //wrapping with provider allows all compnents to access the state
 
@@ -66,16 +66,8 @@ function App() {
                 path="/add-education"
                 component={AddEducation}
               />
-               <PrivateRoute
-                exact
-                path="/posts"
-                component={Posts}
-              />
-                 <PrivateRoute
-                exact
-                path="/posts/:id"
-                component={Post}
-              />
+              <PrivateRoute exact path="/posts" component={Posts} />
+              <PrivateRoute exact path="/posts/:id" component={Post} />
             </Switch>
           </section>
         </div>
